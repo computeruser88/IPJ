@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.web.WebView?>
+<?import com.psu.SWENG500.Powerlifting.models.*?>
+<?import com.psu.SWENG500.Powerlifting.application.ui.*?>
+<?import com.psu.SWENG500.Powerlifting.controller.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0"
+	xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.psu.SWENG500.Powerlifting.controller.MainController">
+	<children>
+		<Pane fx:id="mainPane" prefHeight="600.0" prefWidth="800.0"
+			onMouseClicked="#rightClick">
+			<children>
+				<Text layoutX="85.0" layoutY="75.0" strokeType="OUTSIDE"
+					strokeWidth="0.0" text="Interactive Powerlifting Journal"
+					wrappingWidth="684.13671875">
+					<font>
+						<Font name="Arial Black" size="36.0" />
+					</font>
+				</Text>
+				<Text layoutX="325.0" layoutY="400.0" strokeType="OUTSIDE"
+					strokeWidth="0.0" text="Welcome to Interactive Powerlifting Journal! Here, you can log various workouts based on exercises and repetitions, observe your progress with graphs, track body measurements, and keep up with the latest gym research and advice."
+					wrappingWidth="425">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</Text>
+				<RestrictiveTextField fx:id="usernameTextField"
+					layoutX="80.0" layoutY="200.0">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</RestrictiveTextField>
+				<PasswordField fx:id="passwordTextField" layoutX="80.0"
+					layoutY="269.0">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</PasswordField>
+				<Label layoutX="80.0" layoutY="176.0" text="Username">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</Label>
+				<Label layoutX="80.0" layoutY="245.0" text="Password">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</Label>
+				<Button fx:id="loginButton" layoutX="80.0" layoutY="350.0"
+					mnemonicParsing="false" onAction="#loginAction" prefHeight="38.0"
+					prefWidth="174.0" text="Login">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</Button>
+				<Button fx:id="loginButton" layoutX="80.0" layoutY="423.0"
+					mnemonicParsing="false" onAction="#registerAction" prefHeight="38.0"
+					prefWidth="174.0" text="Register">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</Button>
+				<Label fx:id="loginErrorLabel" layoutX="80.0" layoutY="307.0"
+					prefHeight="17.0" prefWidth="148.0" textFill="RED">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</Label>
+				<ImageView blendMode="DARKEN" fitHeight="200.0" fitWidth="200.0" 
+					layoutX="420.0" layoutY="150.0">
+					<Image url="@images/HomeIcon.jpg"/>
+				</ImageView>
+			</children>
+	</Pane>
+	<WheelNav fx:id="navWheelPane" prefHeight="600.0" prefWidth="800.0">
+		<children>
+		</children>
+	</WheelNav>
+
+	<Pane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+		fx:id="workoutPane" onMouseClicked="#rightClick">
+		<children>
+			<DatePicker fx:id="workoutDate" layoutX="33.0" layoutY="41.0"
+				onAction="#workoutDateChanged" promptText="Select Date" />
+			<TableView fx:id="workoutTable" editable="true" layoutX="33.0"
+				layoutY="87.0" prefHeight="461.0" prefWidth="505.0">
+				<columns>
+					<TableColumn prefWidth="62.0" text="Set">
+						<cellValueFactory>
+							<PropertyValueFactory property="setNumber" />
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn prefWidth="267.0" sortable="false" text="Exercise">
+						<cellValueFactory>
+							<PropertyValueFactory property="exercise" />
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn prefWidth="101.0" text="Weight">
+						<cellValueFactory>
+							<PropertyValueFactory property="weightLifted" />
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn prefWidth="74.0" text="Reps">
+						<cellValueFactory>
+							<PropertyValueFactory property="repCount" />
+						</cellValueFactory>
+					</TableColumn>
+				</columns>
+			</TableView>
+			<Button fx:id="addSet" layoutX="599.0" layoutY="326.0"
+				mnemonicParsing="false" onAction="#addSetButtonAction" prefHeight="54.0"
+				prefWidth="157.0" text="Add Set" />
+			<Button fx:id="logWorkout" layoutX="598.0" layoutY="475.0"
+				mnemonicParsing="false" onAction="#saveWorkoutButtonAction"
+				prefHeight="71.0" prefWidth="156.0" text="Save Workout" />
+			<ComboBox fx:id="addExercise" layoutX="597.0" layoutY="86.0"
+				prefHeight="25.0" prefWidth="158.0" promptText="Choose Exercise" />
+			<RestrictiveTextField fx:id="weightTextBox"
+				layoutX="689.0" layoutY="239.0" prefHeight="25.0" prefWidth="61.0" />
+			<Label layoutX="626.0" layoutY="243.0" text="Weight" />
+			<RestrictiveTextField fx:id="repsTextBox"
+				layoutX="689.0" layoutY="273.0" prefHeight="25.0" prefWidth="61.0" />
+			<Label layoutX="632.0" layoutY="277.0" text="Reps" />
+			<Label fx:id="workoutLogErrorLabel" layoutX="235.0" layoutY="45.0"
+				prefHeight="17.0" prefWidth="303.0" textFill="RED" />
+		</children>
+	</Pane>
+
+	<Pane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+		fx:id="statisticsPane" onMouseClicked="#rightClick">
+		<children>
+			<LineChart fx:id="exerciseLineChart" layoutX="14.0"
+				layoutY="125.0" prefHeight="322.0" prefWidth="347.0">
+				<xAxis>
+					<CategoryAxis label="Date" side="BOTTOM" />
+				</xAxis>
+				<yAxis>
+					<NumberAxis label="Max Weight Lifted" side="LEFT" />
+				</yAxis>
+			</LineChart>
+			<LineChart fx:id="bodyCompositionLineChart" layoutX="393.0"
+				layoutY="126.0" prefHeight="320.0" prefWidth="365.0">
+				<xAxis>
+					<CategoryAxis label="Date" side="BOTTOM" />
+				</xAxis>
+				<yAxis>
+					<NumberAxis side="LEFT" />
+				</yAxis>
+			</LineChart>
+			<ComboBox fx:id="exerciseComboBox" layoutX="77.0" layoutY="50.0"
+				onAction="#exerciseChanged" prefWidth="150.0" promptText="Select Exercise" />
+			<ComboBox fx:id="bodyCompositionComboBox" layoutX="437.0" layoutY="50.0"
+				onAction="#bodyCompositionChanged" prefWidth="150.0" promptText="Select" />
+		</children>
+	</Pane>
+
+	<Pane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+		fx:id="articlesPane" onMouseClicked="#rightClick">
+		<children>
+			<WebView fx:id="webView" layoutY="58.0" prefHeight="510.0"
+				prefWidth="525.0" />
+			<Button fx:id="article1" layoutX="575.0" layoutY="147.0"
+				mnemonicParsing="false" onAction="#showFirstArticle" prefHeight="139.0"
+				prefWidth="199.0" text="Article 1" textAlignment="CENTER" />
+			<Button fx:id="article2" layoutX="575.0" layoutY="286.0"
+				mnemonicParsing="false" onAction="#showSecondArticle" prefHeight="140.0"
+				prefWidth="199.0" text="Article 2" textAlignment="CENTER" />
+			<Button fx:id="article3" layoutX="574.0" layoutY="426.0"
+				mnemonicParsing="false" onAction="#showThirdArticle" prefHeight="139.0"
+				prefWidth="200.0" text="Article 3" textAlignment="CENTER" />
+			<TextField fx:id="searchTextBox" layoutX="14.0" layoutY="14.0"
+				prefHeight="25.0" prefWidth="450.0" promptText="Search" />
+			<Button fx:id="searchButton" layoutX="574.0" layoutY="14.0"
+				mnemonicParsing="false" onAction="#searchArticlesAction" prefHeight="25.0"
+				prefWidth="199.0" text="Search" />
+			<ComboBox fx:id="searchHistory" layoutX="575.0" layoutY="55.0"
+				onAction="#showSearchHistory" prefHeight="25.0" prefWidth="198.0"
+				promptText="Search History" />
+			<Button fx:id="refreshButton" layoutX="475.0" layoutY="14.0"
+				mnemonicParsing="false" onAction="#refreshNewsArticles" prefHeight="15.0"
+				prefWidth="25.0">
+				<graphic>
+					<ImageView blendMode="DARKEN" fitHeight="20.0" fitWidth="30.0">
+						<Image url="@images/refresh.jpg"/>
+					</ImageView>
+				</graphic>
+			</Button>
+			<Label fx:id="articleErrorLabel" layoutX="575.0" layoutY="91.0"
+				prefHeight="43.0" prefWidth="198.0" textFill="RED" />
+		</children>
+	</Pane>
+
+	<Pane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+		fx:id="measurementPane" onMouseClicked="#rightClick">
+		<children>
+			<DatePicker fx:id="measurementsDate" layoutX="45.0"
+				layoutY="37.0" promptText="Select Date" />
+			<ComboBox fx:id="heightInFeetComboBox" layoutX="46.0"
+				layoutY="109.0" prefWidth="150.0" promptText="feet" />
+			<Label layoutX="45.0" layoutY="92.0" text="Height" />
+			<TextField fx:id="weightTextField" layoutX="46.0" layoutY="176.0" />
+			<TextField fx:id="neckTextField" layoutX="46.0" layoutY="239.0" />
+			<TextField fx:id="waistTextField" layoutX="46.0" layoutY="303.0" />
+			<TextField fx:id="hipTextField" layoutX="46.0" layoutY="367.0" />
+			<TextField fx:id="wristTextField" layoutX="46.0" layoutY="431.0" />
+			<TextField fx:id="forearmTextField" layoutX="46.0" layoutY="495.0" />
+			<Button fx:id="saveMeasurementsButton" layoutX="601.0"
+				layoutY="475.0" mnemonicParsing="false" onAction="#saveMeasurementsButtonAction"
+				prefHeight="59.0" prefWidth="153.0" text="Save Measurements" />
+			<Label layoutX="44.0" layoutY="159.0" text="Weight in pounds" />
+			<Label layoutX="44.0" layoutY="222.0" text="Neck circumference, inches" />
+			<Label layoutX="44.0" layoutY="286.0" text="Waist circumference, inches" />
+			<Label layoutX="44.0" layoutY="350.0" text="Hip circumference, inches" />
+			<Label layoutX="44.0" layoutY="414.0" text="Wrist circumference, inches" />
+			<Label layoutX="44.0" layoutY="478.0" text="Forearm circumference, inches" />
+			<ComboBox fx:id="heightInInchesComboBox" layoutX="211.0"
+				layoutY="109.0" prefWidth="150.0" promptText="inches" />
+			<Label fx:id="weightErrorLabel" layoutX="46.0" layoutY="201.0"
+				prefHeight="17.0" prefWidth="149.0" textFill="RED" />
+			<Label fx:id="neckErrorLabel" layoutX="44.0" layoutY="264.0"
+				prefHeight="17.0" prefWidth="151.0" textFill="RED" />
+			<Label fx:id="waistErrorLabel" layoutX="44.0" layoutY="328.0"
+				prefHeight="17.0" prefWidth="150.0" textFill="RED" />
+		</children>
+	</Pane>
+
+	<Pane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="600.0" fx:id="settingsPane" onMouseClicked="#rightClick">
+		<children>
+			<TextField fx:id="firstNameTextField" layoutX="145.0"
+				layoutY="40.0" />
+			<Label layoutX="145.0" layoutY="23.0" prefHeight="17.0"
+				prefWidth="148.0" text="First Name" />
+			<TextField fx:id="lastNameTextField" layoutX="145.0"
+				layoutY="104.0" />
+			<Label layoutX="145.0" layoutY="87.0" prefHeight="17.0"
+				prefWidth="149.0" text="Last Name" />
+			<TextField fx:id="emailTextField" layoutX="145.0" layoutY="164.0" />
+			<Label layoutX="145.0" layoutY="147.0" prefHeight="17.0"
+				prefWidth="148.0" text="Email" />
+			<TextField fx:id="passwordSetTextField" layoutX="145.0"
+				layoutY="286.0" />
+			<Label layoutX="145.0" layoutY="269.0" prefHeight="17.0"
+				prefWidth="149.0" text="Password" />
+			<Label fx:id="genderLabel" layoutX="143.0" layoutY="330.0"
+				prefWidth="150.0" text="Gender" />
+			<Label fx:id="usernameSetLabel" layoutX="145.0" prefHeight="17.0" prefWidth="149.0"
+				layoutY="225.0" />
+			<Button fx:id="saveSettingsButton" layoutX="601.0"
+				layoutY="475.0" mnemonicParsing="false" onAction="#saveSettingsButtonAction"
+				prefHeight="59.0" prefWidth="153.0" text="Save Settings" />
+			<Label layoutX="145.0" layoutY="208.0" prefHeight="17.0"
+				prefWidth="149.0" text="Username" />
+		</children>
+	</Pane> 
+	
+	<Pane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" fx:id="registerPane">
+		<children>
+			<TextField fx:id="rFirstNameTextField" layoutX="145.0"
+				layoutY="40.0" />
+			<Label layoutX="145.0" layoutY="23.0" prefHeight="17.0"
+				prefWidth="148.0" text="First Name" />
+			<TextField fx:id="rLastNameTextField" layoutX="145.0"
+				layoutY="104.0" />
+			<Label layoutX="145.0" layoutY="87.0" prefHeight="17.0"
+				prefWidth="149.0" text="Last Name" />
+			<TextField fx:id="rEmailTextField" layoutX="145.0" layoutY="164.0" />
+			<Label layoutX="145.0" layoutY="147.0" prefHeight="17.0"
+				prefWidth="148.0" text="Email" />
+			<TextField fx:id="rPasswordSetTextField" layoutX="145.0"
+				layoutY="286.0" />
+			<Label layoutX="145.0" layoutY="269.0" prefHeight="17.0"
+				prefWidth="149.0" text="Password" />
+			<ComboBox fx:id="rGenderComboBox" layoutX="143.0" layoutY="330.0"
+				prefWidth="150.0" promptText="Gender" />
+			<RestrictiveTextField fx:id="rUsernameSetTextField" layoutX="145.0"
+				layoutY="225.0" />
+			<Button fx:id="saveUserButton" layoutX="601.0"
+				layoutY="475.0" mnemonicParsing="false" onAction="#saveUserButtonAction"
+				prefHeight="59.0" prefWidth="153.0" text="Save User" />
+			<Label fx:id="saveUserLabel" layoutX="601.0" layoutY="550.0" />
+			<Label layoutX="145.0" layoutY="208.0" prefHeight="17.0"
+				prefWidth="149.0" text="Username" />
+		</children>
+	</Pane>
+	<Label fx:id="lblCurrentUser" layoutX="10.0" layoutY="625.0"
+		text="Current User: [Nobody logged in]" />
+	<Button fx:id="logoutButton" layoutX="625.0" layoutY="610.0"
+		mnemonicParsing="false" onAction="#logoutAction" prefHeight="38.0"
+		prefWidth="174.0" text="Logout">
+		<font>
+			<Font size="14.0" />
+		</font>
+	</Button>
+</children>
+</AnchorPane>
